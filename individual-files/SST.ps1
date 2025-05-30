@@ -229,7 +229,7 @@ function Run-SBOMScan {
 
 # --- Entry Point ---
 Write-Host @"
-System Scanning Toolkit
+`nSystem Scanning Toolkit
 ------------------------
 This tool collects and displays key information about the current Windows device.
 
