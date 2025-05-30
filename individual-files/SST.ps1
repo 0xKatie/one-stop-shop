@@ -14,12 +14,12 @@ function Write-CategoryHeader {
 }
 
 function Show-Menu {
-    Write-Host "`nSystem Scanning Toolkit"
-    Write-Host "------------------------"
-    Write-Host "Select an option:`n"
-    Write-Host "[1] System and networking information"
-    Write-Host "[2] Software Bill of Materials (SBOM)"
-    Write-Host "[0] Exit`n"
+    Write-Host "`nSystem Scanning Toolkit" -ForegroundColor Magenta
+    Write-Host "------------------------" -ForegroundColor Magenta
+    Write-Host "Select an option:`n" -ForegroundColor White
+    Write-Host "[1] System and networking information" -ForegroundColor Green
+    Write-Host "[2] Software Bill of Materials (SBOM)" -ForegroundColor Blue
+    Write-Host "[0] Exit`n" -ForegroundColor DarkRed
 }
 
 function Run-AdminCheck {
@@ -28,8 +28,8 @@ function Run-AdminCheck {
     if ($isAdmin) {
         Write-Host "User has administrative privileges. Running full scan..." -ForegroundColor Green
     } else {
-        Write-Host "User does NOT have administrative privileges." -ForegroundColor Yellow
-        Write-Host "Output will be limited. For full results, re-run this script as Administrator." -ForegroundColor Yellow
+        Write-Host "User does NOT have administrative privileges." -ForegroundColor DarkYellow
+        Write-Host "Output will be limited. For full results, re-run this script as Administrator." -ForegroundColor DarkYellow
     }
 }
 
@@ -81,7 +81,7 @@ function Run-SystemScan {
             $hotfixes | Format-Table -AutoSize
             $output += $hotfixes | ForEach-Object { "$($_.HotFixID) - $($_.InstalledOn)" }
         } catch {
-            Write-Host "Warning: Failed to retrieve hotfixes." -ForegroundColor Yellow
+            Write-Host "Warning: Failed to retrieve hotfixes." -ForegroundColor DarkRed
             $output += "Warning: Failed to retrieve hotfixes."
         }
     } else {
@@ -123,7 +123,7 @@ function Run-SystemScan {
             Write-Item "Automatic Updates:" $status
             $output += "Automatic Updates:  $status"
         } catch {
-            Write-Host "Warning: Unable to access update settings." -ForegroundColor Yellow
+            Write-Host "Warning: Unable to access update settings." -ForegroundColor Red
             $output += "Warning: Unable to access update settings."
         }
     } else {
@@ -137,14 +137,14 @@ function Run-SystemScan {
         $fileBase = "system_scan"
         $filePath = Join-Path $exportFolder "$fileBase.txt"
         $output | Out-File $filePath
-        Write-Host "Export saved to: $(Resolve-Path $filePath)" -ForegroundColor Green
+        Write-Host "Export saved to: $(Resolve-Path $filePath)" -ForegroundColor DarkCyan
 
         $logChoice = Read-Host "Would you like to create a log file? (yes/no)"
         if ($logChoice -match '^y') {
             $logPath = Join-Path $exportFolder "system_log.txt"
             "System scan completed on $(Get-Date)" | Out-File $logPath
             "Saved to: $filePath" | Out-File $logPath -Append
-            Write-Host "Log created at: $(Resolve-Path $logPath)" -ForegroundColor Green
+            Write-Host "Log created at: $(Resolve-Path $logPath)" -ForegroundColor DarkGreen
         }
     }
 }
@@ -165,7 +165,7 @@ function Run-SBOMScan {
                 Select-Object DisplayName, DisplayVersion, Publisher
             $softwareList += $items
         } catch {
-            Write-Host "Warning: Failed to query $path" -ForegroundColor Yellow
+            Write-Host "Warning: Failed to query $path" -ForegroundColor DarkYellow
         }
     }
 
@@ -211,9 +211,9 @@ function Run-SBOMScan {
         $softwareList | ConvertTo-Json -Depth 3 | Out-File $json
         $softwareList | Format-Table -AutoSize | Out-File $txt
 
-        Write-Host "CSV:  $(Resolve-Path $csv)" -ForegroundColor Green
+        Write-Host "CSV:  $(Resolve-Path $csv)" -ForegroundColor Blue
         Write-Host "JSON: $(Resolve-Path $json)" -ForegroundColor Green
-        Write-Host "TXT:  $(Resolve-Path $txt)" -ForegroundColor Green
+        Write-Host "TXT:  $(Resolve-Path $txt)" -ForegroundColor White
 
         $logChoice = Read-Host "Would you like to create a log file? (yes/no)"
         if ($logChoice -match '^y') {
@@ -222,7 +222,7 @@ function Run-SBOMScan {
             "CSV:  $csv" | Out-File $logPath -Append
             "JSON: $json" | Out-File $logPath -Append
             "TXT:  $txt" | Out-File $logPath -Append
-            Write-Host "Log created at: $(Resolve-Path $logPath)" -ForegroundColor Green
+            Write-Host "Log created at: $(Resolve-Path $logPath)" -ForegroundColor DarkGreen
         }
     }
 }
@@ -241,7 +241,7 @@ Features:
 - Optional logging
 
 All operations are local and read-only.
-"@ -ForegroundColor White
+"@ -ForegroundColor Yellow
 
 do {
     Show-Menu
@@ -257,7 +257,7 @@ do {
     switch ($choice) {
         "1" { Run-SystemScan }
         "2" { Run-SBOMScan }
-        default { Write-Host "Invalid selection. Please try again." -ForegroundColor Red }
+        default { Write-Host "Invalid selection. Please try again." -ForegroundColor DarkRed }
     }
 
     $again = Read-Host "`nWould you like to run another scan? (yes/no)"
