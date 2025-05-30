@@ -1,9 +1,9 @@
 # one-stop-shop
 
-# System Scanning Toolkit (SST) & KB Hash Checker
+## System Scanning Toolkit (SST) & KB Hash Checker
 This repository includes two PowerShell scripts developed to support system auditing and patch verification tasks in Windows environments:
 
-## 📘 System Scanning Toolkit (SST.ps1)
+### 📘 System Scanning Toolkit (SST.ps1)
 A CLI-based tool for gathering system, network, and software inventory. 
 Features include:
 - Admin privilege detection
@@ -12,7 +12,7 @@ Features include:
 - Export options (CSV, JSON, TXT)
 - Logging with output saved to a centralized `SST Files` directory
 
-## 🔐 KB Hash Checker (kb-hash-check.ps1)
+### 🔐 KB Hash Checker (kb-hash-check.ps1)
 A PowerShell utility for validating the integrity of downloaded Microsoft update files. 
 Features include:
 - Interactive file path selection (supports Downloads folder)
@@ -21,11 +21,11 @@ Features include:
 
 > All tools are read-only and designed for safe use in enterprise environments.
 
-# Feedback and Pull Requests are welcomed and highly encouraged! 
+## Feedback and Pull Requests are welcomed and highly encouraged! 
 
 ---
 
-# 🛠️ Roadmap & Background Projects
+## 🛠️ Roadmap & Background Projects
 
 - [In Progress] Docs parser & ingestion feed
 - [In Progress] Auditing network-active ports and last usage timestamps
