@@ -8,7 +8,7 @@ A CLI-based tool for gathering system, network, and software inventory.
 Features include:
 - Admin privilege detection
 - System and network adapter info
-- Installed software and SBOM listing
+- Installed software inventorying and listing
 - Export options (CSV, JSON, TXT)
 - Logging with output saved to a centralized `SST Files` directory
 
